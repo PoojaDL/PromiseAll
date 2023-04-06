@@ -8,10 +8,10 @@ function updateLastUserActivityTime(){
     let a=true;
     let time= new Date().toString();
     // timestamp = date.getTime();
-    console.log(time)
+
+    console.log("Before creating "+`${posts[posts.length-1].title}`+" time was "+time)
     if(a){
-      resolve(()=>{
-      });
+      resolve("User last activity time:"+time);
     }else{
       reject('Error')
     }
@@ -25,21 +25,25 @@ function updateLastUserActivityTime(){
 // }
 
 function createPost(post){
-  return new Promise((resolve,reject)=>{
-    let a=true;
+  setTimeout(()=>{
+    return new Promise((resolve,reject)=>{
+      let a=true;
+      posts.push(post);
+      console.log("After creating "+`${posts[posts.length-1].title}`+">>>>" )
+      console.log(posts)
+      console.log("User last activity time :"+new Date().toString())
 
-    setTimeout(()=>{
-    posts.push(post);
-    const time=updateLastUserActivityTime();
-    console.log(posts.pop(posts.length-1));
-    if(a){
-      resolve();
-    }
-    else{
-      reject('Error')
-    }
+      if(a){
+        resolve();
+      }
+      else{
+        reject('Error')
+      }
+
+    })
   },1000)
-  })
+const time=updateLastUserActivityTime();
 }
 
-Promise.all([createPost({title:'Post 4',body:'This is post 4'}),updateLastUserActivityTime]);
+
+Promise.all([createPost({title:'Post Three',body:'This is post Three'})]);
